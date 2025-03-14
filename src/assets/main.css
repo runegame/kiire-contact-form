@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Sora:wght@100..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ki-item-form {
+    @apply ki-w-full;
+}
+
+.ki-item-form-input {
+    @apply ki-w-full ki-outline-none ki-border-b ki-bg-transparent ki-py-4;
+}
+
+.ki-item-form-input-select {
+    margin-top: 4px;
+}
+
+.ki-item-form-checkbox-wrapper {
+    @apply ki-flex ki-gap-6 ki-max-w-[530px];
+}
+
+.ki-item-form-submit {
+    @apply ki-whitespace-nowrap ki-bg-kiire-buttons ki-py-6 ki-px-10 ki-rounded-xl;
+}
+
+.formkit-message {
+    @apply ki-text-red-800 ki-text-sm ki-mt-4;
+}
