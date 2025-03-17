@@ -17,7 +17,7 @@
 }
 
 .ki-item-form-checkbox-wrapper {
-    @apply ki-flex ki-gap-6 ki-max-w-[530px];
+    @apply ki-flex ki-gap-6 ki-max-w-[530px] ki-my-4;
 }
 
 .ki-item-form-submit {

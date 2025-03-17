@@ -108,7 +108,7 @@
           </svg>
         </FormKit>
 
-        <p>Al hacer clic en Enviar, aceptas nuestra <span class="ki-underline">política de privacidad</span></p>
+        <p class="ki-mt-6">Al hacer clic en Enviar, aceptas nuestra <span class="ki-underline">política de privacidad</span></p>
       </div>
     </FormKit>
   </div>
