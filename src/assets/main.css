@@ -24,6 +24,29 @@
     @apply ki-whitespace-nowrap ki-bg-kiire-buttons ki-py-6 ki-px-10 ki-rounded-xl;
 }
 
+.ki-pco-item-form-submit {
+    @apply ki-uppercase ki-w-full ki-py-4 ki-rounded-[70px] ki-flex ki-text-white ki-justify-center ki-items-center ki-gap-6 ki-cursor-pointer;
+    background: radial-gradient(circle at -20% -50%, #E4FF92, #FF5900);
+    transition: all ease-in-out 0.2s;
+}
+
+.ki-disabled {
+    @apply ki-cursor-not-allowed;
+    background: radial-gradient(circle at -20% -50%, #616161, #a6a6a6) !important;
+}
+
 .formkit-message {
     @apply ki-text-red-800 ki-text-sm ki-mt-4;
+}
+
+.formkit-form .alert {
+    @apply ki-p-4 ki-text-sm ki-font-medium ki-leading-tight ki-text-white ki-rounded;
+}
+
+.formkit-form .alert.success {
+    @apply ki-bg-green-800;
+}
+
+.formkit-form .alert.error {
+    @apply ki-bg-red-800;
 }

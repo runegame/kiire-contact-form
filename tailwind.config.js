@@ -9,6 +9,8 @@ export default {
     extend: {
       colors: {
         'kiire-buttons': '#DEFA90',
+        'kiire-lime-200': '#E4FF92',
+        'kiire-orange-600': '#FF5900',
         'kiire-text': '#171B5B',
       },
       fontFamily: {
