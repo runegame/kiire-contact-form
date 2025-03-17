@@ -9,7 +9,7 @@
           incompleteMessage: 'Por favor, completa toda la informacion antes de enviar.'
         }"
     >
-      <div class="ki-flex ki-flex-col ki-gap-10">
+      <div class="ki-flex ki-flex-col ki-gap-1">
         <div class="alert" :class="[`${alert.type}`]" v-if="alert.show">
           {{ alert.message }}
         </div>
