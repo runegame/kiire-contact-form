@@ -57,6 +57,21 @@
         />
 
         <FormKit
+            id="secondPhone"
+            name="secondPhone"
+            type="text"
+            outerClass="ki-item-form"
+            inputClass="ki-item-form-input"
+            placeholder="Segundo teléfono de confianza"
+            validation="required|numeric"
+            validation-visibility="dirty"
+            :validation-messages="{
+              required: 'El teléfono es obligatorio.',
+              numeric: 'Solo se permiten números.'
+            }"
+        />
+
+        <FormKit
             id="email"
             name="email"
             type="text"
@@ -142,9 +157,11 @@ const submit = async (fields) => {
         'Nombre completo': fields['full-name'],
         'Cedula': fields['identification'],
         'Telefono': fields['phone'],
+        'Segundo Telefono': fields['secondPhone'],
         'Correo': fields['email'],
         'Negocio': fields['business'],
         'Acepta comunicaciones': `${fields.communications ? 'Si' : 'No'}`,
+        'Formulario': 'Puntos Colombia',
       },
     ]
   };
