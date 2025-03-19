@@ -1,6 +1,7 @@
 <template>
   <div class="contact-form ki-text-kiire-text ki-font-bricolage-grotesque">
     <FormKit
+        id="contactForm"
         type="form"
         :actions="false"
         @submit="submit"
@@ -8,6 +9,10 @@
           incompleteMessage: 'Por favor, completa toda la informacion antes de enviar.'
         }"
     >
+      <div class="alert ki-mb-6" :class="[`${alert.type}`]" v-if="alert.show">
+        {{ alert.message }}
+      </div>
+
       <div class="ki-flex ki-flex-col md:ki-grid md:ki-grid-cols-2 ki-gap-10">
         <FormKit
             id="full-name"
@@ -126,7 +131,7 @@
           <FormKit
               type="submit"
               label="Comunicate conmigo"
-              inputClass="ki-item-form-submit"
+              :inputClass="`${loading ? 'ki-item-form-submit disabled' : 'ki-item-form-submit'}`"
           />
         </div>
       </div>
@@ -136,8 +141,70 @@
 
 <script setup>
 import {FormKit} from "@formkit/vue";
+import {reactive, ref} from "vue";
+import { getNode } from '@formkit/core';
+import axios from "axios";
 
-const submit = async () => {
-  console.log('estoy aqui')
+const loading = ref(false)
+
+const alert = reactive({
+  message: '',
+  show: false,
+  type: 'success'
+})
+
+const submit = async (fields) => {
+  if (loading.value) return
+
+  loading.value = true
+  alert.message = ''
+  alert.show = false
+  alert.type = 'success'
+
+  const data = {
+    data: [
+      {
+        'Cedula': 'No aplica',
+        'Acepta comunicaciones': 'No aplica',
+        'Formulario': 'Contacto',
+        'Direccion': fields['address'],
+        'Negocio': fields['business'],
+        'Acepta condiciones': `${fields['conditions'] ? 'Si' : 'No'}`,
+        'Correo': fields['email'],
+        'Nombre completo': fields['full-name'],
+        'Telefono': fields['phone'],
+        'Producto': fields['product'],
+        'Segundo Telefono': fields['secondPhone'],
+      },
+    ]
+  };
+
+  axios.post('https://sheetdb.io/api/v1/33g1pa6no3955', data)
+      .then(response => {
+        if (response.data.created === 1) {
+          alert.message = 'Gracias, nos pondremos en contacto lo más pronto posible'
+          alert.show = true
+          alert.type = 'success'
+
+          const formNode = getNode('contactForm');
+          formNode.reset()
+        } else {
+          console.log(response)
+
+          alert.message = 'Ocurrió un error, por favor intenta mas tarde'
+          alert.show = true
+          alert.type = 'error'
+        }
+
+        loading.value = false
+      })
+      .catch(error => {
+        console.log(error)
+
+        alert.message = 'Ocurrió un error, por favor intenta mas tarde'
+        alert.show = true
+        alert.type = 'error'
+        loading.value = false
+      });
 }
 </script>
