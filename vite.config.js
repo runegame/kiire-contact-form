@@ -1,33 +1,54 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+import { fileURLToPath, URL } from 'node:url'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
-  build: {
-    cssCodeSplit: false, // ❌ No dividir el CSS
-    assetsInlineLimit: 100000000, // 🔥 Evita la separación de assets
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-        entryFileNames: 'assets/[name].js', // 🔥 Asegura un solo archivo de salida
-        chunkFileNames: 'assets/[name].js', // 🔥 Asegura que no haya archivos extra
-        assetFileNames: 'assets/[name][extname]', // 🔥 Evita múltiples archivos CSS
-      }
+  plugins: [vue(), vueDevTools()],
+  optimizeDeps: {
+    esbuildOptions: {
+      define: {
+        global: 'globalThis'
+      },
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+          buffer: true
+        })
+      ]
     }
   },
-  esbuild: {
-    loader: 'css', // 🔥 Intenta forzar la carga del CSS en el JS
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env': {} // cubre otros usos generales
+  },
+  build: {
+    lib: {
+      entry: fileURLToPath(new URL('./src/main.js', import.meta.url)),
+      name: 'MyVueApp',
+      formats: ['iife'],
+      fileName: () => 'kiire-contact-form.js'
+    },
+    minify: 'terser',
+    terserOptions: {
+      mangle: {
+        toplevel: true
+      }
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
+        },
+        assetFileNames: () => 'kiire-contact-form.css'
+      }
+    }
   },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    },
-  },
+    }
+  }
 })
