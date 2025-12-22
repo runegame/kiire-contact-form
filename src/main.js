@@ -5,6 +5,8 @@ import App from './App.vue'
 import { plugin, defaultConfig } from '@formkit/vue'
 import '@/assets/main.css'
 import PuntosColombia from "@/PuntosColombia.vue";
+import VisaForm from "@/VisaForm.vue";
 
+createApp(VisaForm).use(plugin, defaultConfig).mount('#visa')
 createApp(PuntosColombia).use(plugin, defaultConfig).mount('#puntos-colombia')
 createApp(App).use(plugin, defaultConfig).mount('#app')
