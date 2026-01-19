@@ -73,6 +73,19 @@
         />
 
         <FormKit
+            id="nit"
+            name="nit"
+            type="text"
+            label="NIT"
+            outerClass="ki-item-form"
+            inputClass="ki-item-form-input"
+            placeholder="NIT de la empresa"
+            validation="required"
+            validation-visibility="dirty"
+            :validation-messages="{ required: 'El NIT de la empresa es obligatorio.' }"
+        />
+
+        <FormKit
             id="address"
             name="address"
             type="text"
@@ -165,6 +178,7 @@ const submit = async (fields) => {
         'Correo electronico': fields['email'],
         'Celular o WhatsApp': fields['phone'],
         'Negocio': fields['business'],
+        'Nit': fields['nit'],
         'Direccion': fields['address'],
         'Ciudad': fields['city'],
         'Municipio': fields['municipality'],
