@@ -9,10 +9,6 @@
           incompleteMessage: 'Por favor, completa toda la informacion antes de enviar.'
         }"
     >
-      <div class="alert ki-mb-6" :class="[`${alert.type}`]" v-if="alert.show">
-        {{ alert.message }}
-      </div>
-
       <div class="ki-flex ki-flex-col md:ki-grid md:ki-grid-cols-2 ki-gap-4 md:ki-gap-10">
         <FormKit
             id="full-name"
@@ -76,13 +72,13 @@
             id="nit"
             name="nit"
             type="text"
-            label="NIT"
+            label="NIT (si tienes una empresa)"
             outerClass="ki-item-form"
             inputClass="ki-item-form-input"
-            placeholder="NIT de la empresa"
+            placeholder="o cédula (si eres persona natural)"
             validation="required"
             validation-visibility="dirty"
-            :validation-messages="{ required: 'El NIT de la empresa es obligatorio.' }"
+            :validation-messages="{ required: 'El NIT o cédula es obligatorio.' }"
         />
 
         <FormKit
@@ -99,6 +95,19 @@
         />
 
         <FormKit
+            id="department"
+            name="department"
+            type="text"
+            label="Departamento"
+            outerClass="ki-item-form"
+            inputClass="ki-item-form-input"
+            placeholder="Departamento de tu negocio"
+            validation="required"
+            validation-visibility="dirty"
+            :validation-messages="{ required: 'El departamento es obligatorio.' }"
+        />
+
+        <FormKit
             id="city"
             name="city"
             type="text"
@@ -109,19 +118,6 @@
             validation="required"
             validation-visibility="dirty"
             :validation-messages="{ required: 'La ciudad es obligatoria.' }"
-        />
-
-        <FormKit
-            id="municipality"
-            name="municipality"
-            type="text"
-            label="Municipio"
-            outerClass="ki-item-form"
-            inputClass="ki-item-form-input"
-            placeholder="Municipio de tu negocio"
-            validation="required"
-            validation-visibility="dirty"
-            :validation-messages="{ required: 'El municipio es obligatorio.' }"
         />
 
         <div class="ki-flex ki-flex-col md:ki-flex-row ki-items-start ki-gap-10 ki-justify-between md:ki-items-center">
@@ -138,12 +134,18 @@
           />
         </div>
 
-        <FormKit
-            class="ki-px-20"
-            type="submit"
-            label="Quiero participar"
-            :inputClass="`${loading ? 'ki-item-form-submit disabled' : 'ki-item-form-submit'}`"
-        />
+        <div class="fi-flex ki-flex-col ki-gap-4">
+          <FormKit
+              class="ki-px-20"
+              type="submit"
+              label="Quiero participar"
+              :inputClass="`${loading ? 'ki-item-form-submit disabled' : 'ki-item-form-submit'}`"
+          />
+
+          <div class="alert ki-mt-6" :class="[`${alert.type}`]" v-if="alert.show">
+            {{ alert.message }}
+          </div>
+        </div>
       </div>
     </FormKit>
   </div>
@@ -180,8 +182,8 @@ const submit = async (fields) => {
         'Negocio': fields['business'],
         'Nit': fields['nit'],
         'Direccion': fields['address'],
+        'Departamento': fields['department'],
         'Ciudad': fields['city'],
-        'Municipio': fields['municipality'],
         'Acepta terminos': fields['conditions'],
       },
     ]
