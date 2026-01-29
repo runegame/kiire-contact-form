@@ -192,7 +192,7 @@ const submit = async (fields) => {
   axios.post('https://sheetdb.io/api/v1/zgv6a7niliym6', data)
       .then(response => {
         if (response.data.created === 1) {
-          alert.message = 'Gracias, nos pondremos en contacto lo más pronto posible'
+          alert.message = '¡Gracias, ya estás participando!'
           alert.show = true
           alert.type = 'success'
 
